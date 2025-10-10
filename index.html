@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل تطبيق انمي TV</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@700&display=swap');
+
+        /* إعدادات أساسية للصفحة */
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+        
+        /* حاوية الشعار */
+        .logo-container {
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 25px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            display: block;
+        }
+
+        /* حاوية العنوان وزر المشاركة */
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+        }
+        
+        /* زر المشاركة */
+        .share-btn {
+            background-color: #f0f2f5;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .share-btn:hover {
+            background-color: #e4e6eb;
+            transform: scale(1.1);
+        }
+        
+        .share-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: #333;
+        }
+        
+        /* إشعار تم النسخ */
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+        
+        .share-btn.show-tooltip .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* عنوان التطبيق */
+        .app-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2em;
+            font-weight: 700;
+            margin: 0;
+            color: #1c1e21;
+        }
+
+        /* وصف التطبيق */
+        .app-description {
+            font-size: 1.1em;
+            color: #555;
+            margin: 10px 0 30px 0;
+        }
+
+        /* === قسم معرض الصور === */
+        .gallery {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 12px;
+            padding: 10px 0;
+            margin-bottom: 25px;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+        .gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: auto;
+            height: 250px;
+            border-radius: 12px;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        /* === تصميم الـ Lightbox (عارض الصور) === */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 85%;
+            display: block;
+            margin: auto;
+        }
+
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            cursor: pointer;
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            user-select: none;
+        }
+        
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            color: #bbb;
+        }
+
+        .lightbox-close { top: 20px; right: 35px; }
+        .lightbox-prev, .lightbox-next { top: 50%; transform: translateY(-50%); padding: 16px; }
+        .lightbox-prev { left: 10px; }
+        .lightbox-next { right: 10px; }
+
+        /* زر التحميل */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(45deg, #007BFF, #00C6FF);
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0, 123, 255, 0.4);
+        }
+        .download-btn .icon {
+            margin-left: 10px;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- عارض الصور (Lightbox) -->
+    <div id="myLightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+        <a class="lightbox-prev">&#10094;</a>
+        <a class="lightbox-next">&#10095;</a>
+    </div>
+
+    <!-- المحتوى الرئيسي للصفحة -->
+    <div class="content-wrapper">
+        
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/Bvht56P6/3641282-ico.png" alt="شعار انمي TV" class="logo">
+        </div>
+        
+        <div class="title-container">
+            <!-- ========== اسم التطبيق الجديد ========== -->
+            <h1 class="app-title">انمي TV</h1>
+            <button class="share-btn" id="shareButton" aria-label="مشاركة">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"></path></svg>
+                <div class="tooltip">تم النسخ!</div>
+            </button>
+        </div>
+
+        <!-- ========== وصف التطبيق الجديد ========== -->
+        <p class="app-description">مكتبة ضخمة من مسلسلات وأفلام الأنمي المترجمة بجودة عالية.</p>
+
+        <!-- معرض الصور (مع الصور الجديدة) -->
+        <div class="gallery">
+            <!-- سيتم إضافة الصور هنا بواسطة جافاسكريبت -->
+        </div>
+
+        <a href="https://apk.e-droid.net/apk/app3641282-nz81jw.apk?v=8" class="download-btn">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+            </svg>
+            <span>تنزيل التطبيق</span>
+        </a>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryContainer = document.querySelector('.gallery');
+            const lightbox = document.getElementById('myLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+
+            // ========== صور المعرض الجديدة ==========
+            const images = [
+                "https://i.postimg.cc/gk5Dsz8F/Screenshot-f726b2616ef66bd9ee997b2232f45eda.jpg",
+                "https://i.postimg.cc/4y21rZ03/Screenshot-f726b2616ef66bd9ee997b2232f45eda.jpg",
+                "https://i.postimg.cc/sXyKWTSX/Screenshot-f726b2616ef66bd9ee997b2232f45eda.jpg"
+            ];
+
+            let currentIndex = 0;
+
+            images.forEach((src, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = `لقطة شاشة للتطبيق ${index + 1}`;
+                galleryItem.appendChild(img);
+                galleryContainer.appendChild(galleryItem);
+                galleryItem.addEventListener('click', () => openLightbox(index));
+            });
+
+            function openLightbox(index) {
+                currentIndex = index;
+                lightboxImg.src = images[currentIndex];
+                lightbox.style.display = 'flex';
+            }
+
+            function closeLightbox() { lightbox.style.display = 'none'; }
+            function showNextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                lightboxImg.src = images[currentIndex];
+            }
+            function showPrevImage() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                lightboxImg.src = images[currentIndex];
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            nextBtn.addEventListener('click', showNextImage);
+            prevBtn.addEventListener('click', showPrevImage);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // --- كود زر المشاركة ---
+            const shareButton = document.getElementById('shareButton');
+            
+            shareButton.addEventListener('click', async () => {
+                const shareData = {
+                    title: document.title,
+                    text: 'تحميل تطبيق انمي TV الرائع!',
+                    url: window.location.href
+                };
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share(shareData);
+                    } catch (err) {
+                        console.error('خطأ في المشاركة:', err);
+                    }
+                } else {
+                    try {
+                        await navigator.clipboard.writeText(window.location.href);
+                        shareButton.classList.add('show-tooltip');
+                        setTimeout(() => {
+                            shareButton.classList.remove('show-tooltip');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('فشل نسخ الرابط:', err);
+                        alert('فشل نسخ الرابط، يرجى نسخه يدويًا.');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
