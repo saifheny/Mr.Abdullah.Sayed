@@ -3,351 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحميل تطبيق انمي TV</title>
+    <title>Mr. Genius | مستر عبدالله سيد</title>
+    
+    <!-- خطوط جوجل (كايرو) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@700&display=swap');
+        /* --- 1. متغيرات الألوان والتصميم --- */
+        :root {
+            --primary: #c0392b;      /* أحمر إنجليزي فخم */
+            --secondary: #2c3e50;    /* أزرق ليلي */
+            --accent: #f1c40f;       /* أصفر ذهبي */
+            --bg-body: #fdfdfd;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-main: #2d3436;
+            --text-light: #636e72;
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --radius: 20px;
+            --transition: all 0.4s ease;
+        }
 
-        /* إعدادات أساسية للصفحة */
-        body {
-            margin: 0;
+        [data-theme="dark"] {
+            --primary: #e74c3c;
+            --secondary: #34495e;
+            --bg-body: #1a1a1a;
+            --glass-bg: rgba(30, 30, 30, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #dfe6e9;
+            --text-light: #b2bec3;
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 2. التنسيق العام --- */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
-            background-color: #ffffff;
-            color: #333;
-            box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 25px;
-            box-sizing: border-box;
+        body {
+            background-color: var(--bg-body);
+            background-image: radial-gradient(#c0392b 0.5px, transparent 0.5px), radial-gradient(#c0392b 0.5px, var(--bg-body) 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-attachment: fixed; /* تأثير خلفية ثابتة */
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: var(--transition);
         }
-        
-        /* حاوية الشعار */
-        .logo-container {
-            background-color: white;
-            border-radius: 24px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            padding: 25px;
-            margin-bottom: 25px;
-            width: 150px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+        /* --- شاشة التحميل (Loading) --- */
+        #loader {
+            position: fixed; inset: 0;
+            background: var(--secondary);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease-out;
+        }
+        .loader-spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #fff; border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- الهيدر (Navbar) --- */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow);
         }
 
         .logo {
-            width: 100px;
-            height: auto;
-            display: block;
+            font-size: 1.5rem; font-weight: 900; color: var(--primary);
+            display: flex; align-items: center; gap: 10px;
         }
 
-        /* حاوية العنوان وزر المشاركة */
-        .title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+        .nav-links {
+            display: flex; gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none; color: var(--text-main); font-weight: 700;
+            transition: var(--transition); position: relative;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        /* زر الوضع الليلي والقائمة للموبايل */
+        .nav-actions { display: flex; gap: 15px; align-items: center; }
+        .theme-btn, .menu-btn {
+            background: none; border: none; font-size: 1.2rem;
+            color: var(--text-main); cursor: pointer; transition: var(--transition);
+        }
+        .menu-btn { display: none; }
+
+        /* --- قسم البطل (Hero Section) --- */
+        .hero {
+            min-height: 90vh;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; gap: 30px;
+            position: relative; overflow: hidden;
+        }
+
+        .hero-text {
+            flex: 1; z-index: 2;
+            animation: slideRight 1s ease-out;
+        }
+
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; }
+        .hero span { color: var(--primary); }
+        .hero p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 30px; }
+
+        .btn-main {
+            padding: 12px 35px; background: var(--primary); color: #fff;
+            border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(192, 57, 43, 0.4);
+            transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(192, 57, 43, 0.6); }
+
+        .hero-img {
+            flex: 1; text-align: left; z-index: 2;
             position: relative;
+            animation: slideLeft 1s ease-out;
+        }
+
+        /* صورة مركبة احترافية */
+        .hero-img img {
+            width: 100%; max-width: 500px;
+            border-radius: 30px 5px 30px 5px;
+            box-shadow: -20px 20px 0 var(--secondary);
+        }
+
+        /* --- الأقسام (Grid System) --- */
+        .section-title { text-align: center; margin: 80px 0 40px; font-size: 2.5rem; color: var(--secondary); }
+        
+        .container {
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* سحر التجاوب */
+            gap: 30px;
+        }
+
+        /* --- الكروت (Cards) --- */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative; overflow: hidden;
+            transform: translateY(30px); opacity: 0; /* للأنيميشن */
+        }
+
+        .card.active { transform: translateY(0); opacity: 1; }
+
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
+
+        .class-img {
+            width: 100%; height: 200px; object-fit: cover;
+            border-radius: 15px; margin-bottom: 15px;
+        }
+
+        .card h3 { margin-bottom: 10px; color: var(--secondary); }
+        .card-meta { display: flex; justify-content: space-between; color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px; }
+
+        /* --- الفوتر --- */
+        footer {
+            background: var(--secondary); color: #fff;
+            padding: 50px 5% 20px; margin-top: 100px;
+            border-top-left-radius: 50px; border-top-right-radius: 50px;
+        }
+
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px; margin-bottom: 40px;
         }
         
-        /* زر المشاركة */
-        .share-btn {
-            background-color: #f0f2f5;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .footer-social a {
+            color: #fff; font-size: 1.5rem; margin-left: 15px; transition: 0.3s;
+        }
+        .footer-social a:hover { color: var(--accent); }
+
+        /* --- تحسينات الموبايل (Media Queries) --- */
+        @media (max-width: 768px) {
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 40px; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links {
+                position: fixed; top: 70px; left: 0; width: 100%;
+                background: var(--glass-bg); flex-direction: column;
+                padding: 20px; align-items: center;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* مخفي */
+                transition: 0.5s;
+            }
+            .nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .menu-btn { display: block; }
+            .hero-img img { width: 80%; }
         }
 
-        .share-btn:hover {
-            background-color: #e4e6eb;
-            transform: scale(1.1);
-        }
+        /* --- Keyframes --- */
+        @keyframes slideRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
         
-        .share-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: #333;
-        }
-        
-        /* إشعار تم النسخ */
-        .tooltip {
-            position: absolute;
-            background-color: #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            bottom: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-        }
-        
-        .share-btn.show-tooltip .tooltip {
-            opacity: 1;
-            visibility: visible;
-        }
+        /* --- النوافذ (Pages) --- */
+        .view { display: none; animation: fadeIn 0.5s; }
+        .view.active-view { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* عنوان التطبيق */
-        .app-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.2em;
-            font-weight: 700;
-            margin: 0;
-            color: #1c1e21;
+        /* صفحة تسجيل الدخول */
+        .login-box {
+            max-width: 400px; margin: 100px auto; text-align: center;
+            padding: 40px; background: var(--glass-bg); border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
-
-        /* وصف التطبيق */
-        .app-description {
-            font-size: 1.1em;
-            color: #555;
-            margin: 10px 0 30px 0;
-        }
-
-        /* === قسم معرض الصور === */
-        .gallery {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 12px;
-            padding: 10px 0;
-            margin-bottom: 25px;
-            width: 100%;
-            -webkit-overflow-scrolling: touch;
-        }
-        .gallery::-webkit-scrollbar {
-            display: none;
-        }
-
-        .gallery-item {
-            flex: 0 0 auto;
-            scroll-snap-align: start;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: auto;
-            height: 250px;
-            border-radius: 12px;
-            display: block;
-            transition: transform 0.2s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.03);
-        }
-
-        /* === تصميم الـ Lightbox (عارض الصور) === */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 85%;
-            display: block;
-            margin: auto;
-        }
-
-        .lightbox-close, .lightbox-prev, .lightbox-next {
-            cursor: pointer;
-            position: absolute;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            user-select: none;
-        }
-        
-        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
-            color: #bbb;
-        }
-
-        .lightbox-close { top: 20px; right: 35px; }
-        .lightbox-prev, .lightbox-next { top: 50%; transform: translateY(-50%); padding: 16px; }
-        .lightbox-prev { left: 10px; }
-        .lightbox-next { right: 10px; }
-
-        /* زر التحميل */
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: white;
-            background: linear-gradient(45deg, #007BFF, #00C6FF);
-            padding: 14px 30px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1em;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-            transition: all 0.3s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 14px rgba(0, 123, 255, 0.4);
-        }
-        .download-btn .icon {
-            margin-left: 10px;
-            width: 20px;
-            height: 20px;
+        .inp-field {
+            width: 100%; padding: 15px; margin: 10px 0;
+            border: 2px solid #eee; border-radius: 10px;
+            background: transparent; color: var(--text-main);
         }
     </style>
 </head>
 <body>
 
-    <!-- عارض الصور (Lightbox) -->
-    <div id="myLightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightboxImg">
-        <a class="lightbox-prev">&#10094;</a>
-        <a class="lightbox-next">&#10095;</a>
+    <!-- شاشة التحميل -->
+    <div id="loader">
+        <div class="loader-spinner"></div>
+        <h3 style="color:white; margin-top:20px;">Mr. Genius</h3>
     </div>
 
-    <!-- المحتوى الرئيسي للصفحة -->
-    <div class="content-wrapper">
+    <!-- الشريط العلوي -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i> Mr. Genius
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#" onclick="switchView('home')">الرئيسية</a>
+            <a href="#classes" onclick="switchView('home')">الصفوف الدراسية</a>
+            <a href="#" onclick="switchView('login')">تسجيل الدخول</a>
+        </div>
+        <div class="nav-actions">
+            <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- الصفحة الرئيسية -->
+    <div id="home" class="view active-view">
         
-        <div class="logo-container">
-            <img src="https://i.postimg.cc/Bvht56P6/3641282-ico.png" alt="شعار انمي TV" class="logo">
-        </div>
-        
-        <div class="title-container">
-            <!-- ========== اسم التطبيق الجديد ========== -->
-            <h1 class="app-title">انمي TV</h1>
-            <button class="share-btn" id="shareButton" aria-label="مشاركة">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"></path></svg>
-                <div class="tooltip">تم النسخ!</div>
-            </button>
+        <!-- قسم الهيرو -->
+        <section class="hero">
+            <div class="hero-text">
+                <h3><i class="fas fa-star" style="color:var(--accent)"></i> منصة التعليم الأولى</h3>
+                <h1>اتقن الإنجليزي مع<br><span>مستر عبدالله سيد</span></h1>
+                <p>شرح مبسط، متابعة دورية، وامتحانات إلكترونية بأحدث المواصفات العالمية. جهز نفسك للدرجة النهائية.</p>
+                <button class="btn-main" onclick="switchView('login')">ابدأ رحلتك الآن <i class="fas fa-arrow-left"></i></button>
+            </div>
+            <div class="hero-img">
+                <!-- صورة معبرة عن التعليم (لابتوب وكتب) -->
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="English Education">
+                <!-- عنصر عائم جمالي -->
+                <div style="position:absolute; bottom:-20px; right:-20px; background:white; padding:15px; border-radius:15px; box-shadow:var(--shadow); display:flex; gap:10px; align-items:center;">
+                    <i class="fas fa-user-graduate" style="color:var(--primary); font-size:2rem;"></i>
+                    <div>
+                        <strong>+5000</strong>
+                        <div style="font-size:0.8rem; color:grey;">طالب متفوق</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم المميزات -->
+        <h2 class="section-title">ليه تختار Mr. Genius؟</h2>
+        <div class="container scroll-animate">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-video" style="font-size:3rem; color:var(--primary); margin-bottom:20px;"></i>
+                <h3>فيديوهات 4K</h3>
+                <p>جودة تصوير ومونتاج عالمية عشان تستمتع وأنت بتذاكر.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-file-pdf" style="font-size:3rem; color:var(--secondary); margin-bottom:20px;"></i>
+                <h3>ملازم PDF</h3>
+                <p>ملازم ملونة ومنظمة بتغنيك عن أي كتاب خارجي.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-clock" style="font-size:3rem; color:var(--accent); margin-bottom:20px;"></i>
+                <h3>دعم 24/7</h3>
+                <p>فريق كامل من المساعدين للرد على أسئلتك في أي وقت.</p>
+            </div>
         </div>
 
-        <!-- ========== وصف التطبيق الجديد ========== -->
-        <p class="app-description">مكتبة ضخمة من مسلسلات وأفلام الأنمي المترجمة بجودة عالية.</p>
+        <!-- قسم الصفوف الدراسية -->
+        <h2 class="section-title" id="classes">الصفوف الدراسية</h2>
+        <div class="container scroll-animate">
+            <!-- الصف الأول -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" class="class-img" alt="1st Sec">
+                <div class="card-meta">
+                    <span><i class="fas fa-book"></i> المنهج كامل</span>
+                    <span><i class="fas fa-users"></i> 1500 طالب</span>
+                </div>
+                <h3>الصف الأول الثانوي</h3>
+                <p style="margin-bottom:20px; color:var(--text-light);">تأسيس قوي للقواعد والكلمات بأسلوب ممتع.</p>
+                <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
+            </div>
 
-        <!-- معرض الصور (مع الصور الجديدة) -->
-        <div class="gallery">
-            <!-- سيتم إضافة الصور هنا بواسطة جافاسكريبت -->
+            <!-- الصف الثاني -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" class="class-img" alt="2nd Sec">
+                <div class="card-meta">
+                    <span><i class="fas fa-book"></i> المنهج كامل</span>
+                    <span><i class="fas fa-users"></i> 2000 طالب</span>
+                </div>
+                <h3>الصف الثاني الثانوي</h3>
+                <p style="margin-bottom:20px; color:var(--text-light);">شرح تفصيلي للقصة والجرامر والتراجم.</p>
+                <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
+            </div>
+
+            <!-- الصف الثالث -->
+            <div class="card" style="border: 2px solid var(--accent);">
+                <div style="position:absolute; top:10px; left:10px; background:var(--accent); padding:5px 10px; border-radius:5px; font-weight:bold;">الأهم</div>
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" class="class-img" alt="3rd Sec">
+                <div class="card-meta">
+                    <span><i class="fas fa-book"></i> المنهج المكثف</span>
+                    <span><i class="fas fa-users"></i> 5000 طالب</span>
+                </div>
+                <h3>الصف الثالث الثانوي</h3>
+                <p style="margin-bottom:20px; color:var(--text-light);">معسكرات ومراجعات نهائية تضمن لك الدرجة النهائية.</p>
+                <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
+            </div>
         </div>
-
-        <a href="https://apk.e-droid.net/apk/app3641282-nz81jw.apk?v=8" class="download-btn">
-            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
-            </svg>
-            <span>تنزيل التطبيق</span>
-        </a>
 
     </div>
+
+    <!-- صفحة تسجيل الدخول -->
+    <div id="login" class="view">
+        <div class="login-box">
+            <h2 style="color:var(--primary); margin-bottom:20px;">تسجيل الدخول</h2>
+            <p style="margin-bottom:30px;">أهلاً بك في عائلة العباقرة</p>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" class="inp-field" placeholder="رقم الهاتف أو الإيميل" required>
+                <input type="password" class="inp-field" placeholder="كلمة المرور" required>
+                <button class="btn-main" style="width:100%; margin-top:20px;">دخول</button>
+            </form>
+            <p style="margin-top:20px; font-size:0.9rem; cursor:pointer;" onclick="switchView('home')">الرجوع للرئيسية</p>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h2 style="margin-bottom:20px;"><i class="fas fa-graduation-cap"></i> Mr. Genius</h2>
+                <p style="color:#ccc; line-height:1.6;">منصة تعليمية رائدة تهدف لتبسيط اللغة الإنجليزية لطلاب الثانوية العامة مع مستر عبدالله سيد.</p>
+            </div>
+            <div>
+                <h3>روابط هامة</h3>
+                <ul style="list-style:none; margin-top:15px; line-height:2;">
+                    <li><a href="#" style="color:#ccc; text-decoration:none;">من نحن</a></li>
+                    <li><a href="#" style="color:#ccc; text-decoration:none;">سياسة الخصوصية</a></li>
+                    <li><a href="#" style="color:#ccc; text-decoration:none;">الشروط والأحكام</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>تواصل معنا</h3>
+                <div class="footer-social" style="margin-top:20px;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
+            <p>&copy; 2024 جميع الحقوق محفوظة لـ Mr. Abdullah Sayed</p>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const galleryContainer = document.querySelector('.gallery');
-            const lightbox = document.getElementById('myLightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            const closeBtn = document.querySelector('.lightbox-close');
-            const prevBtn = document.querySelector('.lightbox-prev');
-            const nextBtn = document.querySelector('.lightbox-next');
-
-            // ========== صور المعرض الجديدة ==========
-            const images = [
-                "https://i.postimg.cc/gk5Dsz8F/Screenshot-f726b2616ef66bd9ee997b2232f45eda.jpg",
-                "https://i.postimg.cc/4y21rZ03/Screenshot-f726b2616ef66bd9ee997b2232f45eda.jpg",
-                "https://i.postimg.cc/sXyKWTSX/Screenshot-f726b2616ef66bd9ee997b2232f45eda.jpg"
-            ];
-
-            let currentIndex = 0;
-
-            images.forEach((src, index) => {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = `لقطة شاشة للتطبيق ${index + 1}`;
-                galleryItem.appendChild(img);
-                galleryContainer.appendChild(galleryItem);
-                galleryItem.addEventListener('click', () => openLightbox(index));
-            });
-
-            function openLightbox(index) {
-                currentIndex = index;
-                lightboxImg.src = images[currentIndex];
-                lightbox.style.display = 'flex';
-            }
-
-            function closeLightbox() { lightbox.style.display = 'none'; }
-            function showNextImage() {
-                currentIndex = (currentIndex + 1) % images.length;
-                lightboxImg.src = images[currentIndex];
-            }
-            function showPrevImage() {
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                lightboxImg.src = images[currentIndex];
-            }
-
-            closeBtn.addEventListener('click', closeLightbox);
-            nextBtn.addEventListener('click', showNextImage);
-            prevBtn.addEventListener('click', showPrevImage);
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) closeLightbox();
-            });
-
-            // --- كود زر المشاركة ---
-            const shareButton = document.getElementById('shareButton');
+        // 1. إخفاء شاشة التحميل
+        window.onload = () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 1500); // مدة التحميل
             
-            shareButton.addEventListener('click', async () => {
-                const shareData = {
-                    title: document.title,
-                    text: 'تحميل تطبيق انمي TV الرائع!',
-                    url: window.location.href
-                };
+            checkScroll(); // تفعيل الأنيميشن المبدئي
+        };
 
-                if (navigator.share) {
-                    try {
-                        await navigator.share(shareData);
-                    } catch (err) {
-                        console.error('خطأ في المشاركة:', err);
-                    }
+        // 2. إدارة الثيم (Dark/Light)
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.querySelector('.theme-btn i');
+            
+            if(body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                btn.className = 'fas fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.className = 'fas fa-sun';
+            }
+        }
+
+        // 3. القائمة في الموبايل
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+
+        // 4. التنقل بين الصفحات (SPA Feel)
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active-view'));
+            document.getElementById(viewId).classList.add('active-view');
+            window.scrollTo(0,0);
+            
+            // إغلاق القائمة في الموبايل إذا كانت مفتوحة
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // 5. محاكاة تسجيل الدخول
+        function handleLogin(e) {
+            e.preventDefault();
+            alert('تم تسجيل الدخول بنجاح! جاري تحويلك للوحة التحكم...');
+            // هنا يمكنك إضافة كود التوجيه الحقيقي
+        }
+
+        function checkLogin() {
+            // فحص بسيط
+            let loggedIn = false; // غيّر هذا لـ true للتجربة
+            if(loggedIn) {
+                alert('جاري فتح المحتوى...');
+            } else {
+                switchView('login');
+            }
+        }
+
+        // 6. أنيميشن عند التمرير (Scroll Animation)
+        window.addEventListener('scroll', checkScroll);
+
+        function checkScroll() {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            const boxes = document.querySelectorAll('.card');
+
+            boxes.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                if(boxTop < triggerBottom) {
+                    box.classList.add('active');
                 } else {
-                    try {
-                        await navigator.clipboard.writeText(window.location.href);
-                        shareButton.classList.add('show-tooltip');
-                        setTimeout(() => {
-                            shareButton.classList.remove('show-tooltip');
-                        }, 2000);
-                    } catch (err) {
-                        console.error('فشل نسخ الرابط:', err);
-                        alert('فشل نسخ الرابط، يرجى نسخه يدويًا.');
-                    }
+                    box.classList.remove('active');
                 }
             });
-        });
+        }
     </script>
 </body>
 </html>
