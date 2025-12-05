@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- إعدادات الترميز والعرض -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 1. تحسينات SEO في قسم Head -->
-    <!-- العنوان الرئيسي الذي يظهر في نتائج بحث جوجل -->
     <title>مستر عبدالله سيد | أفضل مدرس انجليزي للمرحلة الثانوية</title>
     
-    <!-- وصف الصفحة الذي يظهر تحت العنوان في جوجل -->
     <meta name="description" content="الموقع الرسمي لمستر عبدالله سيد، أفضل مدرس لغة إنجليزية للمرحلة الثانوية. شرح مبسط، فيديوهات 4K، ملازم PDF، وامتحانات إلكترونية شاملة. تعلم الإنجليزية بسهولة مع مستر عبدالله.">
     
-    <!-- الكلمات المفتاحية المستهدفة -->
     <meta name="keywords" content="مستر عبدالله سيد, مستر عبدالله للانجليزي, تعلم الانجليزي, مدرس انجليزي, دروس انجليزي, ثانوية عامة لغة إنجليزية, شرح انجليزي ثانوية عامة">
 
-
-    <!-- توجيه عناكب البحث لأرشفة الصفحة -->
     <meta name="robots" content="index, follow">
     
-    <!-- تحسينات للمشاركة على السوشيال ميديا (Open Graph) -->
     <meta property="og:title" content="مستر عبدالله سيد | مدرس لغة إنجليزية">
     <meta property="og:description" content="احجز مكانك الآن مع مستر عبدالله سيد واضمن الدرجة النهائية في اللغة الإنجليزية.">
     <meta property="og:type" content="website">
 
-    <!-- خطوط جوجل (كايرو) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <!-- مكتبة الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. متغيرات الألوان والتصميم --- */
         :root {
-            --primary: #c0392b;      /* أحمر إنجليزي فخم */
-            --secondary: #2c3e50;    /* أزرق ليلي */
-            --accent: #f1c40f;       /* أصفر ذهبي */
+            --primary: #c0392b;
+            --secondary: #2c3e50;
+            --accent: #f1c40f;
             --bg-body: #fdfdfd;
             --glass-bg: rgba(255, 255, 255, 0.9);
             --glass-border: rgba(255, 255, 255, 0.5);
@@ -56,7 +45,6 @@
             --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
-        /* --- 2. التنسيق العام --- */
         * {
             margin: 0; padding: 0; box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
@@ -74,7 +62,6 @@
             transition: var(--transition);
         }
 
-        /* --- شاشة التحميل (Loading) --- */
         #loader {
             position: fixed; inset: 0;
             background: var(--secondary);
@@ -91,7 +78,6 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- الهيدر (Navbar) --- */
         nav {
             position: sticky; top: 0; z-index: 100;
             background: var(--glass-bg);
@@ -125,7 +111,6 @@
         }
         .menu-btn { display: none; }
 
-        /* --- قسم البطل (Hero Section) --- */
         .hero {
             min-height: 90vh;
             display: flex; align-items: center; justify-content: space-between;
@@ -162,7 +147,6 @@
             box-shadow: -20px 20px 0 var(--secondary);
         }
 
-        /* --- الأقسام (Grid System) --- */
         .section-title { text-align: center; margin: 80px 0 40px; font-size: 2.5rem; color: var(--secondary); }
         
         .container {
@@ -172,7 +156,6 @@
             gap: 30px;
         }
 
-        /* --- الكروت (Cards) --- */
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(5px);
@@ -197,7 +180,6 @@
         .card h3 { margin-bottom: 10px; color: var(--secondary); }
         .card-meta { display: flex; justify-content: space-between; color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px; }
 
-        /* --- الفوتر --- */
         footer {
             background: var(--secondary); color: #fff;
             padding: 50px 5% 20px; margin-top: 100px;
@@ -214,7 +196,6 @@
         }
         .footer-social a:hover { color: var(--accent); }
 
-        /* --- تحسينات الموبايل --- */
         @media (max-width: 768px) {
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 40px; }
             .hero h1 { font-size: 2.5rem; }
@@ -230,16 +211,13 @@
             .hero-img img { width: 80%; }
         }
 
-        /* --- Keyframes --- */
         @keyframes slideRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slideLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
         
-        /* --- النوافذ (Pages) --- */
         .view { display: none; animation: fadeIn 0.5s; }
         .view.active-view { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* صفحة تسجيل الدخول */
         .login-box {
             max-width: 400px; margin: 100px auto; text-align: center;
             padding: 40px; background: var(--glass-bg); border-radius: var(--radius);
@@ -254,16 +232,13 @@
 </head>
 <body>
 
-    <!-- شاشة التحميل -->
     <div id="loader">
         <div class="loader-spinner"></div>
         <h3 style="color:white; margin-top:20px;">Mr. Abdullah Sayed</h3>
     </div>
 
-    <!-- الشريط العلوي -->
     <nav>
         <div class="logo">
-            <!-- استخدام الاسم في الشعار يساعد في السيو -->
             <i class="fas fa-graduation-cap"></i> Mr. Abdullah
         </div>
         <div class="nav-links" id="navLinks">
@@ -277,20 +252,16 @@
         </div>
     </nav>
 
-    <!-- الصفحة الرئيسية -->
     <div id="home" class="view active-view">
         
-        <!-- قسم الهيرو (الأهم للكلمات المفتاحية) -->
         <section class="hero">
             <div class="hero-text">
                 <h3><i class="fas fa-star" style="color:var(--accent)"></i> أقوى منصة لتعلم الانجليزي</h3>
-                <!-- H1 يحتوي على الكلمة المفتاحية الرئيسية -->
                 <h1>اتقن اللغة الإنجليزية مع<br><span>مستر عبدالله سيد</span></h1>
                 <p>مرحباً بك في الموقع الرسمي لمستر عبدالله سيد، مدرس انجليزي للمرحلة الثانوية. نقدم شرحاً مبسطاً، متابعة دورية، وامتحانات إلكترونية بأحدث المواصفات العالمية.</p>
                 <button class="btn-main" onclick="switchView('login')">ابدأ رحلتك مع مستر عبدالله <i class="fas fa-arrow-left"></i></button>
             </div>
             <div class="hero-img">
-                <!-- تحسين وصف الصورة (Alt Text) -->
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="مستر عبدالله سيد مدرس لغة انجليزية يشرح لطلبة الثانوية العامة">
                 <div style="position:absolute; bottom:-20px; right:-20px; background:white; padding:15px; border-radius:15px; box-shadow:var(--shadow); display:flex; gap:10px; align-items:center;">
                     <i class="fas fa-user-graduate" style="color:var(--primary); font-size:2rem;"></i>
@@ -302,8 +273,6 @@
             </div>
         </section>
 
-        <!-- قسم المميزات -->
-        <!-- استخدام H2 يحتوي على اسم المستر -->
         <h2 class="section-title">لماذا تختار مستر عبدالله سيد؟</h2>
         <div class="container scroll-animate">
             <div class="card" style="text-align: center;">
@@ -323,12 +292,9 @@
             </div>
         </div>
 
-        <!-- قسم الصفوف الدراسية -->
         <h2 class="section-title" id="classes">صفوف اللغة الإنجليزية</h2>
         <div class="container scroll-animate">
-            <!-- الصف الأول -->
             <div class="card">
-                <!-- تحسين وصف الصورة -->
                 <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" class="class-img" alt="منهج الصف الأول الثانوي لغة انجليزية مع مستر عبدالله سيد">
                 <div class="card-meta">
                     <span><i class="fas fa-book"></i> المنهج كامل</span>
@@ -339,7 +305,6 @@
                 <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك مع مستر عبدالله</button>
             </div>
 
-            <!-- الصف الثاني -->
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" class="class-img" alt="شرح منهج الصف الثاني الثانوي انجليزي مستر عبدالله">
                 <div class="card-meta">
@@ -351,7 +316,6 @@
                 <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
             </div>
 
-            <!-- الصف الثالث -->
             <div class="card" style="border: 2px solid var(--accent);">
                 <div style="position:absolute; top:10px; left:10px; background:var(--accent); padding:5px 10px; border-radius:5px; font-weight:bold;">الأهم</div>
                 <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" class="class-img" alt="مراجعات الثانوية العامة انجليزي مستر عبدالله سيد">
@@ -367,7 +331,6 @@
 
     </div>
 
-    <!-- صفحة تسجيل الدخول -->
     <div id="login" class="view">
         <div class="login-box">
             <h2 style="color:var(--primary); margin-bottom:20px;">تسجيل الدخول للمنصة</h2>
@@ -381,7 +344,6 @@
         </div>
     </div>
 
-    <!-- الفوتر -->
     <footer>
         <div class="footer-grid">
             <div>
@@ -412,18 +374,16 @@
     </footer>
 
     <script>
-        // 1. إخفاء شاشة التحميل
         window.onload = () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => loader.style.display = 'none', 500);
-            }, 1500); // مدة التحميل
+            }, 1500);
             
-            checkScroll(); // تفعيل الأنيميشن المبدئي
+            checkScroll();
         };
 
-        // 2. إدارة الثيم (Dark/Light)
         function toggleTheme() {
             const body = document.body;
             const btn = document.querySelector('.theme-btn i');
@@ -437,32 +397,26 @@
             }
         }
 
-        // 3. القائمة في الموبايل
         function toggleMenu() {
             const nav = document.getElementById('navLinks');
             nav.classList.toggle('active');
         }
 
-        // 4. التنقل بين الصفحات (SPA Feel)
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active-view'));
             document.getElementById(viewId).classList.add('active-view');
             window.scrollTo(0,0);
             
-            // إغلاق القائمة في الموبايل إذا كانت مفتوحة
             document.getElementById('navLinks').classList.remove('active');
         }
 
-        // 5. محاكاة تسجيل الدخول
         function handleLogin(e) {
             e.preventDefault();
             alert('تم تسجيل الدخول بنجاح! جاري تحويلك للوحة التحكم...');
-            // هنا يمكنك إضافة كود التوجيه الحقيقي
         }
 
         function checkLogin() {
-            // فحص بسيط
-            let loggedIn = false; // غيّر هذا لـ true للتجربة
+            let loggedIn = false;
             if(loggedIn) {
                 alert('جاري فتح المحتوى...');
             } else {
@@ -470,7 +424,6 @@
             }
         }
 
-        // 6. أنيميشن عند التمرير (Scroll Animation)
         window.addEventListener('scroll', checkScroll);
 
         function checkScroll() {
