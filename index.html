@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- إعدادات الترميز والعرض -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr. Genius | مستر عبدالله سيد</title>
+
+    <!-- 1. تحسينات SEO في قسم Head -->
+    <!-- العنوان الرئيسي الذي يظهر في نتائج بحث جوجل -->
+    <title>مستر عبدالله سيد | أفضل مدرس انجليزي للمرحلة الثانوية</title>
     
+    <!-- وصف الصفحة الذي يظهر تحت العنوان في جوجل -->
+    <meta name="description" content="الموقع الرسمي لمستر عبدالله سيد، أفضل مدرس لغة إنجليزية للمرحلة الثانوية. شرح مبسط، فيديوهات 4K، ملازم PDF، وامتحانات إلكترونية شاملة. تعلم الإنجليزية بسهولة مع مستر عبدالله.">
+    
+    <!-- الكلمات المفتاحية المستهدفة -->
+    <meta name="keywords" content="مستر عبدالله سيد, مستر عبدالله للانجليزي, تعلم الانجليزي, مدرس انجليزي, دروس انجليزي, ثانوية عامة لغة إنجليزية, شرح انجليزي ثانوية عامة">
+
+
+    <!-- توجيه عناكب البحث لأرشفة الصفحة -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- تحسينات للمشاركة على السوشيال ميديا (Open Graph) -->
+    <meta property="og:title" content="مستر عبدالله سيد | مدرس لغة إنجليزية">
+    <meta property="og:description" content="احجز مكانك الآن مع مستر عبدالله سيد واضمن الدرجة النهائية في اللغة الإنجليزية.">
+    <meta property="og:type" content="website">
+
     <!-- خطوط جوجل (كايرو) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <!-- مكتبة الأيقونات -->
@@ -49,7 +68,7 @@
             background-image: radial-gradient(#c0392b 0.5px, transparent 0.5px), radial-gradient(#c0392b 0.5px, var(--bg-body) 0.5px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
-            background-attachment: fixed; /* تأثير خلفية ثابتة */
+            background-attachment: fixed;
             color: var(--text-main);
             overflow-x: hidden;
             transition: var(--transition);
@@ -99,7 +118,6 @@
 
         .nav-links a:hover { color: var(--primary); }
 
-        /* زر الوضع الليلي والقائمة للموبايل */
         .nav-actions { display: flex; gap: 15px; align-items: center; }
         .theme-btn, .menu-btn {
             background: none; border: none; font-size: 1.2rem;
@@ -138,7 +156,6 @@
             animation: slideLeft 1s ease-out;
         }
 
-        /* صورة مركبة احترافية */
         .hero-img img {
             width: 100%; max-width: 500px;
             border-radius: 30px 5px 30px 5px;
@@ -151,7 +168,7 @@
         .container {
             padding: 0 5%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* سحر التجاوب */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
@@ -165,7 +182,7 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative; overflow: hidden;
-            transform: translateY(30px); opacity: 0; /* للأنيميشن */
+            transform: translateY(30px); opacity: 0;
         }
 
         .card.active { transform: translateY(0); opacity: 1; }
@@ -197,7 +214,7 @@
         }
         .footer-social a:hover { color: var(--accent); }
 
-        /* --- تحسينات الموبايل (Media Queries) --- */
+        /* --- تحسينات الموبايل --- */
         @media (max-width: 768px) {
             .hero { flex-direction: column-reverse; text-align: center; padding-top: 40px; }
             .hero h1 { font-size: 2.5rem; }
@@ -205,7 +222,7 @@
                 position: fixed; top: 70px; left: 0; width: 100%;
                 background: var(--glass-bg); flex-direction: column;
                 padding: 20px; align-items: center;
-                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* مخفي */
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
                 transition: 0.5s;
             }
             .nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
@@ -240,13 +257,14 @@
     <!-- شاشة التحميل -->
     <div id="loader">
         <div class="loader-spinner"></div>
-        <h3 style="color:white; margin-top:20px;">Mr. Genius</h3>
+        <h3 style="color:white; margin-top:20px;">Mr. Abdullah Sayed</h3>
     </div>
 
     <!-- الشريط العلوي -->
     <nav>
         <div class="logo">
-            <i class="fas fa-graduation-cap"></i> Mr. Genius
+            <!-- استخدام الاسم في الشعار يساعد في السيو -->
+            <i class="fas fa-graduation-cap"></i> Mr. Abdullah
         </div>
         <div class="nav-links" id="navLinks">
             <a href="#" onclick="switchView('home')">الرئيسية</a>
@@ -262,86 +280,88 @@
     <!-- الصفحة الرئيسية -->
     <div id="home" class="view active-view">
         
-        <!-- قسم الهيرو -->
+        <!-- قسم الهيرو (الأهم للكلمات المفتاحية) -->
         <section class="hero">
             <div class="hero-text">
-                <h3><i class="fas fa-star" style="color:var(--accent)"></i> منصة التعليم الأولى</h3>
-                <h1>اتقن الإنجليزي مع<br><span>مستر عبدالله سيد</span></h1>
-                <p>شرح مبسط، متابعة دورية، وامتحانات إلكترونية بأحدث المواصفات العالمية. جهز نفسك للدرجة النهائية.</p>
-                <button class="btn-main" onclick="switchView('login')">ابدأ رحلتك الآن <i class="fas fa-arrow-left"></i></button>
+                <h3><i class="fas fa-star" style="color:var(--accent)"></i> أقوى منصة لتعلم الانجليزي</h3>
+                <!-- H1 يحتوي على الكلمة المفتاحية الرئيسية -->
+                <h1>اتقن اللغة الإنجليزية مع<br><span>مستر عبدالله سيد</span></h1>
+                <p>مرحباً بك في الموقع الرسمي لمستر عبدالله سيد، مدرس انجليزي للمرحلة الثانوية. نقدم شرحاً مبسطاً، متابعة دورية، وامتحانات إلكترونية بأحدث المواصفات العالمية.</p>
+                <button class="btn-main" onclick="switchView('login')">ابدأ رحلتك مع مستر عبدالله <i class="fas fa-arrow-left"></i></button>
             </div>
             <div class="hero-img">
-                <!-- صورة معبرة عن التعليم (لابتوب وكتب) -->
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="English Education">
-                <!-- عنصر عائم جمالي -->
+                <!-- تحسين وصف الصورة (Alt Text) -->
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="مستر عبدالله سيد مدرس لغة انجليزية يشرح لطلبة الثانوية العامة">
                 <div style="position:absolute; bottom:-20px; right:-20px; background:white; padding:15px; border-radius:15px; box-shadow:var(--shadow); display:flex; gap:10px; align-items:center;">
                     <i class="fas fa-user-graduate" style="color:var(--primary); font-size:2rem;"></i>
                     <div>
                         <strong>+5000</strong>
-                        <div style="font-size:0.8rem; color:grey;">طالب متفوق</div>
+                        <div style="font-size:0.8rem; color:grey;">طالب يثقون في مستر عبدالله</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- قسم المميزات -->
-        <h2 class="section-title">ليه تختار Mr. Genius؟</h2>
+        <!-- استخدام H2 يحتوي على اسم المستر -->
+        <h2 class="section-title">لماذا تختار مستر عبدالله سيد؟</h2>
         <div class="container scroll-animate">
             <div class="card" style="text-align: center;">
                 <i class="fas fa-video" style="font-size:3rem; color:var(--primary); margin-bottom:20px;"></i>
                 <h3>فيديوهات 4K</h3>
-                <p>جودة تصوير ومونتاج عالمية عشان تستمتع وأنت بتذاكر.</p>
+                <p>شرح انجليزي بجودة تصوير ومونتاج عالمية تجعل المذاكرة ممتعة.</p>
             </div>
             <div class="card" style="text-align: center;">
                 <i class="fas fa-file-pdf" style="font-size:3rem; color:var(--secondary); margin-bottom:20px;"></i>
                 <h3>ملازم PDF</h3>
-                <p>ملازم ملونة ومنظمة بتغنيك عن أي كتاب خارجي.</p>
+                <p>ملازم مستر عبدالله الملونة والمنظمة تغنيك عن أي كتاب خارجي.</p>
             </div>
             <div class="card" style="text-align: center;">
                 <i class="fas fa-clock" style="font-size:3rem; color:var(--accent); margin-bottom:20px;"></i>
-                <h3>دعم 24/7</h3>
-                <p>فريق كامل من المساعدين للرد على أسئلتك في أي وقت.</p>
+                <h3>دعم مستمر</h3>
+                <p>فريق كامل للرد على استفسارات الطلاب مع مستر عبدالله طوال الوقت.</p>
             </div>
         </div>
 
         <!-- قسم الصفوف الدراسية -->
-        <h2 class="section-title" id="classes">الصفوف الدراسية</h2>
+        <h2 class="section-title" id="classes">صفوف اللغة الإنجليزية</h2>
         <div class="container scroll-animate">
             <!-- الصف الأول -->
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" class="class-img" alt="1st Sec">
+                <!-- تحسين وصف الصورة -->
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" class="class-img" alt="منهج الصف الأول الثانوي لغة انجليزية مع مستر عبدالله سيد">
                 <div class="card-meta">
                     <span><i class="fas fa-book"></i> المنهج كامل</span>
                     <span><i class="fas fa-users"></i> 1500 طالب</span>
                 </div>
                 <h3>الصف الأول الثانوي</h3>
-                <p style="margin-bottom:20px; color:var(--text-light);">تأسيس قوي للقواعد والكلمات بأسلوب ممتع.</p>
-                <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
+                <p style="margin-bottom:20px; color:var(--text-light);">تأسيس قوي للقواعد والكلمات مع أقوى مدرس انجليزي.</p>
+                <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك مع مستر عبدالله</button>
             </div>
 
             <!-- الصف الثاني -->
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" class="class-img" alt="2nd Sec">
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" class="class-img" alt="شرح منهج الصف الثاني الثانوي انجليزي مستر عبدالله">
                 <div class="card-meta">
                     <span><i class="fas fa-book"></i> المنهج كامل</span>
                     <span><i class="fas fa-users"></i> 2000 طالب</span>
                 </div>
                 <h3>الصف الثاني الثانوي</h3>
-                <p style="margin-bottom:20px; color:var(--text-light);">شرح تفصيلي للقصة والجرامر والتراجم.</p>
+                <p style="margin-bottom:20px; color:var(--text-light);">شرح تفصيلي للقصة والجرامر والتراجم بأسلوب مستر عبدالله المميز.</p>
                 <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
             </div>
 
             <!-- الصف الثالث -->
             <div class="card" style="border: 2px solid var(--accent);">
                 <div style="position:absolute; top:10px; left:10px; background:var(--accent); padding:5px 10px; border-radius:5px; font-weight:bold;">الأهم</div>
-                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" class="class-img" alt="3rd Sec">
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" class="class-img" alt="مراجعات الثانوية العامة انجليزي مستر عبدالله سيد">
                 <div class="card-meta">
                     <span><i class="fas fa-book"></i> المنهج المكثف</span>
                     <span><i class="fas fa-users"></i> 5000 طالب</span>
                 </div>
                 <h3>الصف الثالث الثانوي</h3>
-                <p style="margin-bottom:20px; color:var(--text-light);">معسكرات ومراجعات نهائية تضمن لك الدرجة النهائية.</p>
-                <button class="btn-main" style="width:100%" onclick="checkLogin()">اشترك الآن</button>
+                <p style="margin-bottom:20px; color:var(--text-light);">معسكرات ومراجعات نهائية تضمن لك الدرجة النهائية في الانجليزي.</p>
+                <button class="btn-main" style="width:100%" onclick="checkLogin()">انضم للأوائل</button>
             </div>
         </div>
 
@@ -350,8 +370,8 @@
     <!-- صفحة تسجيل الدخول -->
     <div id="login" class="view">
         <div class="login-box">
-            <h2 style="color:var(--primary); margin-bottom:20px;">تسجيل الدخول</h2>
-            <p style="margin-bottom:30px;">أهلاً بك في عائلة العباقرة</p>
+            <h2 style="color:var(--primary); margin-bottom:20px;">تسجيل الدخول للمنصة</h2>
+            <p style="margin-bottom:30px;">أهلاً بك في عائلة مستر عبدالله سيد</p>
             <form onsubmit="handleLogin(event)">
                 <input type="text" class="inp-field" placeholder="رقم الهاتف أو الإيميل" required>
                 <input type="password" class="inp-field" placeholder="كلمة المرور" required>
@@ -365,29 +385,29 @@
     <footer>
         <div class="footer-grid">
             <div>
-                <h2 style="margin-bottom:20px;"><i class="fas fa-graduation-cap"></i> Mr. Genius</h2>
-                <p style="color:#ccc; line-height:1.6;">منصة تعليمية رائدة تهدف لتبسيط اللغة الإنجليزية لطلاب الثانوية العامة مع مستر عبدالله سيد.</p>
+                <h2 style="margin-bottom:20px;"><i class="fas fa-graduation-cap"></i> Mr. Abdullah Sayed</h2>
+                <p style="color:#ccc; line-height:1.6;">منصة تعليمية رائدة تهدف لتبسيط اللغة الإنجليزية لطلاب الثانوية العامة مع مستر عبدالله سيد. نسعى لبناء جيل متفوق ومتميز لغوياً.</p>
             </div>
             <div>
                 <h3>روابط هامة</h3>
                 <ul style="list-style:none; margin-top:15px; line-height:2;">
-                    <li><a href="#" style="color:#ccc; text-decoration:none;">من نحن</a></li>
+                    <li><a href="#" style="color:#ccc; text-decoration:none;">عن مستر عبدالله</a></li>
                     <li><a href="#" style="color:#ccc; text-decoration:none;">سياسة الخصوصية</a></li>
-                    <li><a href="#" style="color:#ccc; text-decoration:none;">الشروط والأحكام</a></li>
+                    <li><a href="#classes" style="color:#ccc; text-decoration:none;">كورسات الانجليزي</a></li>
                 </ul>
             </div>
             <div>
                 <h3>تواصل معنا</h3>
                 <div class="footer-social" style="margin-top:20px;">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="فيسبوك مستر عبدالله"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="قناة يوتيوب مستر عبدالله"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="تليجرام"><i class="fab fa-telegram"></i></a>
+                    <a href="#" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
         <div style="text-align:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
-            <p>&copy; 2024 جميع الحقوق محفوظة لـ Mr. Abdullah Sayed</p>
+            <p>&copy; 2024 جميع الحقوق محفوظة لـ Mr. Abdullah Sayed | مدرس لغة إنجليزية</p>
         </div>
     </footer>
 
